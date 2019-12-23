@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const session = require("session");
+const session = require("express-session");
 
 const authRouter = require("../auth/auth-router.js");
 const listingRouter = require("../listings/listings-router.js");
