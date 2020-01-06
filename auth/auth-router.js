@@ -26,10 +26,10 @@ router.post("/login", (req, res) => {
     Users.checkCreds(creds)
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
-        req.session.name = user.email;
+        req.session.name = user.id;
         res
           .status(200)
-          .json({ msg: "Login successful", username: user.email });
+          .json({ msg: "Login successful", user_id: user.id });
       } else {
         res.status(401).json({ msg: "Invalid credentials" });
       }

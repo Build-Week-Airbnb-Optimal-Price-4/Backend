@@ -24,9 +24,10 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  Listings.editListing(req.body)
-    .then(res => {
-      if (res) {
+  Listings.editListing(req.body, req.params.id)
+    .then(resp => {
+      console.log(resp)
+      if (resp) {
         res.status(200).json({msg: "listing successfully updated"})
       } else {
         res.status(404).json({errMsg: "listing not found"})

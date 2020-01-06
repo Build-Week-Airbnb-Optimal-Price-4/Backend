@@ -20,69 +20,69 @@ const sessionConfig = {
   saveUninitialized: false
 };
 
-const whitelist = ['http://localhost:3000', 'https://opti.netlify.com']
+const whitelist = ["http://localhost:3000", "https://opti.netlify.com"];
 
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true
-}
+};
 
 server.use(express.json());
 server.use(session(sessionConfig));
-server.use(cors(corsOptions))
+server.use(cors(corsOptions));
 
-server.get('/', (req,res) => {
+server.get("/", (req, res) => {
   res.status(200).json([
     {
       method: "post",
       endpoint: "/api/auth/login",
       description: "login",
-      body: 'email and password'
+      body: "email and password"
     },
     {
       method: "post",
       endpoint: "/api/auth/register",
       description: "register",
-      body: 'email and password'
+      body: "email and password"
     },
     {
       method: "get",
       endpoint: "/api/auth/logout",
       description: "logout",
-      body: 'no body'
+      body: "no body"
     },
     {
       method: "post",
       endpoint: "/api/listings",
       description: "add listing",
-      body: 'listing_url, city, room_type, minimum_nights, user_id'
+      body: "listing_url, city, room_type, minimum_nights, user_id"
     },
     {
       method: "put",
       endpoint: "/api/listings",
       description: "edit listing",
-      body: 'at least one of: listing_url, city, room_type, minimum_nights'
+      body: "at least one of: listing_url, city, room_type, minimum_nights"
     },
     {
       method: "delete",
       endpoint: "/api/listings/:listingId",
       description: "remove listing",
-      body: 'no body'
+      body: "no body"
     },
     {
       method: "get",
       endpoint: "/api/listings/:userId",
       description: "get user listings",
-      body: 'no body'
-    },
-  ])
-})
+      body: "no body"
+    }
+  ]);
+});
 
 server.use("/api/auth", authRouter);
 
