@@ -1,19 +1,61 @@
+const Listings = require("./listings-model.js");
+
 const router = require("express").Router();
 
-router.post("/:userId", (req, res) => {
-  res.status("200").send("add listing");
+router.post("/", (req, res) => {
+  if (
+    req.body.listing_url &&
+    req.body.city &&
+    req.body.room_type &&
+    req.body.minimum_nights
+  ) {
+    Listings.addListing(req.body)
+      .then(yes => res.status(201).json({msg: "listing successfully posted"}))
+      .catch(err => res.status(500).json({ errMsg: err }));
+  } else {
+    res
+      .status(400)
+      .json({
+        errMsg:
+          "listing_url, city, room_type, and minimum_nights are required fields"
+      });
+    }
 });
 
-router.put("/:userId/:id", (req, res) => {
-  res.status("200").send("edit listing");
+router.put("/:id", (req, res) => {
+  Listings.editListing(req.body)
+    .then(res => {
+      if (res) {
+        res.status(200).json({msg: "listing successfully updated"})
+      } else {
+        res.status(404).json({errMsg: "listing not found"})
+      }
+    })
+    .catch(err => res.status(500).json({ errMsg: err }))
 });
 
-router.delete("/:userId/:id", (req, res) => {
-  res.status("200").send("delete listing");
+router.delete("/:id", (req, res) => {
+  Listings.removeListing(req.params.id)
+    .then(yes => {
+      if (yes) {
+        res.status(200).json({msg: "listing successfully deleted"})
+      } else {
+        res.status(404).json({errMsg: "listing not found"})
+      }
+    })
+    .catch(err => res.status(500).json({ errMsg: err }))
 });
 
 router.get("/:userId", (req, res) => {
-  res.status("200").send("get listings");
+  Listings.getListings(req.params.userId)
+    .then(listings => {
+      if (listings.length) {
+        res.status(200).json(listings)
+      } else {
+        res.status(404).json({errMsg: "user not found"})
+      }
+    })
+    .catch(err => res.status(500).json({ errMsg: err }))
 });
 
 module.exports = router;

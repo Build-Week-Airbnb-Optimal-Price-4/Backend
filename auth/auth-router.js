@@ -15,7 +15,7 @@ router.post("/register", (req, res) => {
       .then(yes => res.status(201).json(yes))
       .catch(err => res.status(500).json({ errMsg: "error registering user" }));
   } else {
-    res.status(404).json({ errMsg: "email and password are required" });
+    res.status(400).json({ errMsg: "email and password are required" });
   }
 });
 
@@ -38,7 +38,7 @@ router.post("/login", (req, res) => {
       res.status(500).json({ errMsg: "error validating user" });
     });
   } else {
-    res.status(404).json({errMsg: "already logged in"})
+    res.status(400).json({errMsg: "already logged in"})
   }
 
   
@@ -46,7 +46,7 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", (req, res) => {
   if (!req.session.name) {
-    res.status(404).json({ errMsg: "already logged out" });
+    res.status(400).json({ errMsg: "already logged out" });
   } else {
     req.session.destroy(err => {
       if (err) {

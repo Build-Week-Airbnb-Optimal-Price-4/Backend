@@ -17,7 +17,7 @@ exports.up = function(knex) {
         .references("id")
         .inTable("user")
         .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE")
       tbl
         .text("listing_url")
         .notNullable()
