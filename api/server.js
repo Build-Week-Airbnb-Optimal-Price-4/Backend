@@ -22,6 +22,11 @@ const sessionConfig = {
 
 server.use(express.json());
 server.use(session(sessionConfig));
+server.use(cors())
+
+server.get('/', (req,res) => {
+  res.send('working')
+})
 
 server.use("/api/auth", authRouter);
 
