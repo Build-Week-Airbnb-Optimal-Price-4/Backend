@@ -38,7 +38,7 @@ server.use(session(sessionConfig));
 server.use(cors(corsOptions))
 
 server.get('/', (req,res) => {
-  res.send([
+  res.status(200).json([
     {
       method: "post",
       endpoint: "/api/auth/login",
