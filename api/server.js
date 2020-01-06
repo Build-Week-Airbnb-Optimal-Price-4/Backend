@@ -20,7 +20,7 @@ const sessionConfig = {
   saveUninitialized: false
 };
 
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:3000', 'https://opti.netlify.com', 'https://air-bnb-optimal-price-4.herokuapp.com/']
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -38,7 +38,7 @@ server.use(session(sessionConfig));
 server.use(cors(corsOptions))
 
 server.get('/', (req,res) => {
-  res.send('working')
+  res.send('/api/auth/register')
 })
 
 server.use("/api/auth", authRouter);
