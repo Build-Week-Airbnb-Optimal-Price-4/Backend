@@ -38,7 +38,50 @@ server.use(session(sessionConfig));
 server.use(cors(corsOptions))
 
 server.get('/', (req,res) => {
-  res.send('/api/auth/register')
+  res.send([
+    {
+      method: "post",
+      endpoint: "/api/auth/login",
+      description: "login",
+      body: 'email and password'
+    },
+    {
+      method: "post",
+      endpoint: "/api/auth/register",
+      description: "register",
+      body: 'email and password'
+    },
+    {
+      method: "get",
+      endpoint: "/api/auth/logout",
+      description: "logout",
+      body: 'no body'
+    },
+    {
+      method: "post",
+      endpoint: "/api/listings",
+      description: "add listing",
+      body: 'listing_url, city, room_type, minimum_nights, user_id'
+    },
+    {
+      method: "put",
+      endpoint: "/api/listings",
+      description: "edit listing",
+      body: 'at least one of: listing_url, city, room_type, minimum_nights'
+    },
+    {
+      method: "delete",
+      endpoint: "/api/listings/:listingId",
+      description: "remove listing",
+      body: 'no body'
+    },
+    {
+      method: "get",
+      endpoint: "/api/listings/:userId",
+      description: "get user listings",
+      body: 'no body'
+    },
+  ])
 })
 
 server.use("/api/auth", authRouter);

@@ -1,7 +1,8 @@
 const db = require("../database/dbconfig.js");
 
 function addListing(listing) {
-  
+  return db("listing")
+    .insert(listing)
 }
 
 function editListing(listing, id) {

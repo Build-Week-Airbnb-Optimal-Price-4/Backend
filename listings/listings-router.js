@@ -7,7 +7,8 @@ router.post("/", (req, res) => {
     req.body.listing_url &&
     req.body.city &&
     req.body.room_type &&
-    req.body.minimum_nights
+    req.body.minimum_nights &&
+    req.body.user_id
   ) {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg: "listing successfully posted"}))
@@ -17,7 +18,7 @@ router.post("/", (req, res) => {
       .status(400)
       .json({
         errMsg:
-          "listing_url, city, room_type, and minimum_nights are required fields"
+          "listing_url, city, room_type, minimum_nights, and user_id are required fields"
       });
     }
 });
