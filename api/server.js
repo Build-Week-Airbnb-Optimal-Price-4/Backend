@@ -20,11 +20,11 @@ const sessionConfig = {
   saveUninitialized: false
 };
 
-const whitelist = ['http://localhost:3000', 'https://opti.netlify.com', 'https://air-bnb-optimal-price-4.herokuapp.com/']
+const whitelist = ['http://localhost:3000', 'https://opti.netlify.com']
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
