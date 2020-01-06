@@ -20,9 +20,13 @@ const sessionConfig = {
   saveUninitialized: false
 };
 
+const corsOptions = {
+  origin: 'http://localhost:3000'
+}
+
 server.use(express.json());
 server.use(session(sessionConfig));
-server.use(cors())
+server.use(cors(corsOptions))
 
 server.get('/', (req,res) => {
   res.send('working')
