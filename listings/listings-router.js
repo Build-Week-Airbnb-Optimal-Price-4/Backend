@@ -3,6 +3,10 @@ const Listings = require("./listings-model.js");
 const router = require("express").Router();
 
 router.post("/", (req, res) => {
+  const userId = req.session.name
+  if (userId != req.body.user_id) {
+    res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
+  }
   if (
     req.body.listing_url &&
     req.body.city &&
@@ -12,7 +16,7 @@ router.post("/", (req, res) => {
   ) {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg: "listing successfully posted"}))
-      .catch(err => res.status(500).json({ errMsg: err }));
+      .catch(err => res.status(500).json({ errMsg: "error posting listing (most likely the listing_url is already in the database)" }));
   } else {
     res
       .status(400)
@@ -24,6 +28,10 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  const userId = req.session.name
+  if (userId != req.body.user_id) {
+    res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
+  }
   Listings.editListing(req.body, req.params.id)
     .then(resp => {
       console.log(resp)
@@ -33,7 +41,7 @@ router.put("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: err }))
+    .catch(err => res.status(500).json({ errMsg: "error editing listing" }))
 });
 
 router.delete("/:id", (req, res) => {
@@ -45,7 +53,7 @@ router.delete("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: err.detail }))
+    .catch(err => res.status(500).json({ errMsg: "error deleting listing" }))
 });
 
 router.get("/:userId", (req, res) => {
@@ -61,7 +69,9 @@ router.get("/:userId", (req, res) => {
         res.status(404).json({errMsg: "user does not have any listings or user does not exist"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: err }))
+    .catch(err => {
+      res.status(500).json({ errMsg: err })
+    })
 });
 
 module.exports = router;
