@@ -66,7 +66,7 @@ router.get("/:userId", (req, res) => {
       if (listings.length) {
         res.status(200).json(listings)
       } else {
-        res.status(404).json({errMsg: "user does not have any listings or user does not exist"})
+        res.status(200).json(listings)
       }
     })
     .catch(err => {
