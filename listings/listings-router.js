@@ -49,12 +49,16 @@ router.delete("/:id", (req, res) => {
 });
 
 router.get("/:userId", (req, res) => {
+  const userId = req.session.name
+  if (userId != req.params.userId) {
+    res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
+  }
   Listings.getListings(req.params.userId)
     .then(listings => {
       if (listings.length) {
         res.status(200).json(listings)
       } else {
-        res.status(404).json({errMsg: "user not found"})
+        res.status(404).json({errMsg: "user does not have any listings or user does not exist"})
       }
     })
     .catch(err => res.status(500).json({ errMsg: err }))
