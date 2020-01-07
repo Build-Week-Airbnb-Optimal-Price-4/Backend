@@ -12,7 +12,7 @@ router.post("/register", (req, res) => {
     creds.password = hash;
 
     Users.addUser(creds)
-      .then(yes => res.status(201).json(yes))
+      .then(yes => res.status(201).json({msg: "user successfully registered"}))
       .catch(err => res.status(500).json({ errMsg: "error registering user" }));
   } else {
     res.status(400).json({ errMsg: "email and password are required" });
