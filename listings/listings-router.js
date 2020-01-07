@@ -45,7 +45,7 @@ router.delete("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: err }))
+    .catch(err => res.status(500).json({ errMsg: err.detail }))
 });
 
 router.get("/:userId", (req, res) => {
