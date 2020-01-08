@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
   ) {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg: "listing successfully posted"}))
-      .catch(err => res.status(500).json({ errMsg: "error posting listing" }));
+      .catch(err => res.status(500).json({ errMsg: "error posting listing", error: err }));
   } else {
     res
       .status(400)
@@ -40,7 +40,7 @@ router.put("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: "error editing listing", error: err }))
+    .catch(err => res.status(500).json({ errMsg: "error editing listing"}))
 });
 
 router.delete("/:id", (req, res) => {
