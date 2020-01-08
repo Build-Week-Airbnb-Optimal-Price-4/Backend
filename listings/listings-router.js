@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
   ) {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg: "listing successfully posted"}))
-      .catch(err => res.status(500).json({ errMsg: "error posting listing (most likely the listing_url is already in the database)" }));
+      .catch(err => res.status(500).json({ errMsg: "error posting listing" }));
   } else {
     res
       .status(400)
@@ -40,7 +40,7 @@ router.put("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: "error editing listing" }))
+    .catch(err => res.status(500).json({ errMsg: "error editing listing", error: err }))
 });
 
 router.delete("/:id", (req, res) => {
