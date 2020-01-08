@@ -23,7 +23,7 @@ exports.up = function(knex) {
         .notNullable()
         .unique();
       tbl.text("image");
-      tbl.integer("city").notNullable();
+      tbl.text("city").notNullable();
       tbl.float("price", { precision: 2 });
     });
 };
