@@ -8,10 +8,10 @@ router.post("/", (req, res) => {
     res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
   }
   if (
-    req.body.listing_url &&
+    req.body.image &&
     req.body.city &&
-    req.body.room_type &&
-    req.body.minimum_nights &&
+    req.body.title &&
+    req.body.price &&
     req.body.user_id
   ) {
     Listings.addListing(req.body)
