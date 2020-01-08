@@ -19,13 +19,12 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
       tbl
-        .text("listing_url")
+        .text("title")
         .notNullable()
         .unique();
-      tbl.text("city").notNullable();
-      tbl.text("room_type").notNullable();
-      tbl.integer("minimum_nights").notNullable();
-      tbl.float("prediction", { precision: 2 });
+      tbl.text("image");
+      tbl.integer("city").notNullable();
+      tbl.float("price", { precision: 2 });
     });
 };
 
