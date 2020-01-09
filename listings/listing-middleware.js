@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     body.room_type &&
     body.user_id
   ) {
-
+    
   } else {
     res
       .status(400)

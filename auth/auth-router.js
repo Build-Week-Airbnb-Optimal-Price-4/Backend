@@ -15,7 +15,7 @@ router.post("/register", (req, res) => {
       .then(yes => res.status(201).json({msg: "user successfully registered"}))
       .catch(err => res.status(500).json({ errMsg: "error registering user" }));
   } else {
-    res.status(400).json({ errMsg: "email and password are required" });
+    res.status(404).json({ errMsg: "email and password are required" });
   }
 });
 
