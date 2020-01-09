@@ -1,31 +1,13 @@
 const Listings = require("./listings-model.js");
+const validatePost = require('./validatePost-middleware')
 
 const router = require("express").Router();
 
-router.post("/", (req, res) => {
-  const userId = req.session.name
-  if (userId != req.body.user_id) {
-    res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
-  }
-  if (
-    req.body.accommodates &&
-    req.body.bathrooms &&
-    req.body.bedrooms &&
-    req.body.size &&
-    req.body.room_type &&
-    req.body.user_id
-  ) {
+
+router.post("/", validatePost, (req, res) => {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg: "listing successfully posted"}))
       .catch(err => res.status(500).json({ errMsg: "error posting listing", error: err }));
-  } else {
-    res
-      .status(400)
-      .json({
-        errMsg:
-          "accommodates, bathrooms, bedrooms, size, room_type, and user_id are required fields"
-      });
-    }
 });
 
 router.put("/:id", (req, res) => {
