@@ -19,6 +19,7 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("title").notNullable();
+      tbl.text('address');
       tbl.text("image");
       tbl
         .integer("accommodates")
@@ -41,7 +42,7 @@ exports.up = function(knex) {
       tbl.integer("minimum_nights").unsigned().defaultsTo(2);
       tbl.text("instant_bookable").defaultsTo('f');
       tbl.text("cancellation_policy").defaultsTo('flexible');
-      tbl.text("bad_of_words");
+      tbl.text("bag_of_words");
       tbl.float("price", { precision: 2 });
     });
 };
