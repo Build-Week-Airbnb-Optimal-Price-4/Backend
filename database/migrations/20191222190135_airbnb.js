@@ -37,10 +37,10 @@ exports.up = function(knex) {
         .notNullable()
         .unsigned();
       tbl.text("room_type").notNullable();
-      tbl.text("bed_type");
-      tbl.integer("minimum_nights").unsigned();
-      tbl.integer("instant_bookable").unsigned();
-      tbl.text("cancellation_policy");
+      tbl.text("bed_type").defaultsTo('Real Bed');
+      tbl.integer("minimum_nights").unsigned().defaultsTo(2);
+      tbl.text("instant_bookable").defaultsTo('f');
+      tbl.text("cancellation_policy").defaultsTo('flexible');
       tbl.text("bad_of_words");
       tbl.float("price", { precision: 2 });
     });
