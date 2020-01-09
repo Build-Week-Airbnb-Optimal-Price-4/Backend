@@ -30,9 +30,6 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const userId = req.session.name
-  if (userId != req.params.id) {
-    res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
-  }
   Listings.editListing(req.body, req.params.id)
     .then(resp => {
       console.log(resp)
