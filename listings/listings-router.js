@@ -8,9 +8,11 @@ router.post("/", (req, res) => {
     res.status(401).json({msg: "user not authorized (probably the given userId does not match the userId stored in the session)"})
   }
   if (
-    req.body.city &&
-    req.body.title &&
-    req.body.price &&
+    req.body.accommodates &&
+    req.body.bathrooms &&
+    req.body.bedrooms &&
+    req.body.size &&
+    req.body.room_type &&
     req.body.user_id
   ) {
     Listings.addListing(req.body)
@@ -21,7 +23,7 @@ router.post("/", (req, res) => {
       .status(400)
       .json({
         errMsg:
-          "city and title are required fields"
+          "accommodates, bathrooms, bedrooms, size, room_type, and user_id are required fields"
       });
     }
 });
