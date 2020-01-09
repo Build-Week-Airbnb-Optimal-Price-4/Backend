@@ -1,8 +1,7 @@
 exports.up = function(knex) {
   return knex.schema
     .createTable("user", tbl => {
-      tbl.increments().onUpdate("CASCADE")
-      .onDelete("CASCADE");
+      tbl.increments();
       tbl
         .text("email")
         .notNullable()
