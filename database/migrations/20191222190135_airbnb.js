@@ -1,11 +1,13 @@
 exports.up = function(knex) {
   return knex.schema
     .createTable("user", tbl => {
-      tbl.increments();
+      tbl.increments().onUpdate("CASCADE")
+      .onDelete("CASCADE");
       tbl
         .text("email")
         .notNullable()
-        .unique();
+        .unique()
+        ;
       tbl.varchar("password").notNullable();
     })
     .createTable("listing", tbl => {
