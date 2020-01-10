@@ -4,6 +4,8 @@ const axios = require('axios')
 const api = process.env.API_URL || "http://089a9671.ngrok.io/"
 
 function addListing(listing) {
+  axios.get(api)
+  .then(cool => cool)
   return db("listing")
     .insert(listing)
     .then(id => {
