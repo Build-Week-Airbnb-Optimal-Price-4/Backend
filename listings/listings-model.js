@@ -1,17 +1,18 @@
 const db = require("../database/dbconfig.js");
 const axios = require("axios");
 
-const api = process.env.API_URL || "http://089a9671.ngrok.io/";
+const api = process.env.API_URL || "https://airbnb-test-ds8.herokuapp.com/";
 
 async function addListing(listing) {
-  const pred = await axios.post('https://airbnb-test-ds8.herokuapp.com/', listing)
+  const pred = await axios.post(`${api}`, listing)
   return db('listing').insert({...listing, price: pred.data})
 }
 
-function editListing(listing, id) {
+async function editListing(listing, id) {
+  const pred = await axios.post(`${api}`, listing)
   return db("listing")
     .where({ id: id })
-    .update(listing);
+    .update({price: pred.data});
 }
 
 function removeListing(id) {
