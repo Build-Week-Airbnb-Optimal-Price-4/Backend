@@ -10,6 +10,7 @@ async function addListing(listing) {
 
 async function editListing(listing, id) {
   const pred = await axios.post(`${api}`, listing)
+  console.log(pred.data)
   return db("listing")
     .where({ id: id })
     .update({price: pred.data});

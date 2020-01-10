@@ -11,7 +11,6 @@ router.post("/", validatePost, (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  const userId = req.session.name
   Listings.editListing(req.body, req.params.id)
     .then(resp => {
       console.log(resp)
