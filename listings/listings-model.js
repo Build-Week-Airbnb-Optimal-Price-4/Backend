@@ -9,7 +9,7 @@ function addListing(listing) {
     .then(id => {
       return db("listing").where({id: id[0]}).first()
         .then(listing => {
-          axios.post("https://401b7cba.ngrok.io/", listing)
+          axios.post("https://27417822.ngrok.io/", listing)
           .then(price => {
             return editListing({price: price.data.results}, id[0])
           })
