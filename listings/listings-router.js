@@ -4,7 +4,7 @@ const validatePost = require('./validatePost-middleware')
 const router = require("express").Router();
 
 
-router.post("/", validatePost, (req, res) => {
+router.post("/", (req, res) => {
   axios.get('https://swapi.co/api/people/1')
     .then(ppl => res.status(200).json(ppl))
     .catch(err => res.send("something wrong"))
