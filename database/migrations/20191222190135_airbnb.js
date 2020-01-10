@@ -5,8 +5,7 @@ exports.up = function(knex) {
       tbl
         .text("email")
         .notNullable()
-        .unique()
-        ;
+        .unique();
       tbl.varchar("password").notNullable();
     })
     .createTable("listing", tbl => {
@@ -20,7 +19,7 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("title").notNullable();
-      tbl.text('address');
+      tbl.text("address");
       tbl.text("image");
       tbl
         .integer("accommodates")
@@ -39,11 +38,14 @@ exports.up = function(knex) {
         .notNullable()
         .unsigned();
       tbl.text("room_type").notNullable();
-      tbl.text("bed_type").defaultsTo('Real Bed');
-      tbl.integer("minimum_nights").unsigned().defaultsTo(2);
-      tbl.text("instant_bookable").defaultsTo('f');
-      tbl.text("cancellation_policy").defaultsTo('flexible');
-      tbl.text("bag_of_words").defaultsTo('');
+      tbl.text("bed_type").defaultsTo("Real Bed");
+      tbl
+        .integer("minimum_nights")
+        .unsigned()
+        .defaultsTo(2);
+      tbl.text("instant_bookable").defaultsTo("f");
+      tbl.text("cancellation_policy").defaultsTo("flexible");
+      tbl.text("bag_of_words").defaultsTo("");
       tbl.float("price", { precision: 2 });
     });
 };

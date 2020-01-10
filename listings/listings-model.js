@@ -4,16 +4,16 @@ const axios = require("axios");
 const api = process.env.API_URL || "https://airbnb-test-ds8.herokuapp.com/";
 
 async function addListing(listing) {
-  const pred = await axios.post(`${api}`, listing)
-  return db('listing').insert({...listing, price: pred.data})
+  const pred = await axios.post(`${api}`, listing);
+  return db("listing").insert({ ...listing, price: pred.data });
 }
 
 async function editListing(listing, id) {
-  const pred = await axios.post(`${api}`, listing)
-  console.log(pred.data)
+  const pred = await axios.post(`${api}`, listing);
+  console.log(pred.data);
   return db("listing")
     .where({ id: id })
-    .update({...listing, price: pred.data});
+    .update({ ...listing, price: pred.data });
 }
 
 function removeListing(id) {

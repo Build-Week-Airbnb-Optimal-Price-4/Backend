@@ -12,7 +12,9 @@ router.post("/register", (req, res) => {
     creds.password = hash;
 
     Users.addUser(creds)
-      .then(yes => res.status(201).json({msg: "user successfully registered"}))
+      .then(yes =>
+        res.status(201).json({ msg: "user successfully registered" })
+      )
       .catch(err => res.status(500).json({ errMsg: "error registering user" }));
   } else {
     res.status(404).json({ errMsg: "email and password are required" });
@@ -23,22 +25,17 @@ router.post("/login", (req, res) => {
   const creds = req.body;
 
   Users.checkCreds(creds)
-  .then(user => {
-    if (user && bcrypt.compareSync(creds.password, user.password)) {
-      req.session.name = user.id;
-      res
-        .status(200)
-        .json({ msg: "Login successful", user_id: user.id });
-    } else {
-      res.status(401).json({ msg: "Invalid credentials" });
-    }
-  })
-  .catch(err => {
-    res.status(500).json({ errMsg: "error validating user" });
-  });
-
-
-  
+    .then(user => {
+      if (user && bcrypt.compareSync(creds.password, user.password)) {
+        req.session.name = user.id;
+        res.status(200).json({ msg: "Login successful", user_id: user.id });
+      } else {
+        res.status(401).json({ msg: "Invalid credentials" });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ errMsg: "error validating user" });
+    });
 });
 
 router.get("/logout", (req, res) => {
@@ -48,7 +45,7 @@ router.get("/logout", (req, res) => {
     } else {
       res.send({ msg: "user logged out" });
     }
-  }); 
+  });
 });
 
 module.exports = router;
