@@ -10,6 +10,24 @@ router.post("/", validatePost, (req, res) => {
       .catch(err => res.status(500).json({ errMsg: "error posting listing", err:err}));
 });
 
+router.post("/test", (req, res) => {
+  axios.post("http://089a9671.ngrok.io/", {
+    "title": "budfvfddvg",
+      "accommodates": 2,
+      "bathrooms": 1,
+      "bedrooms":2,
+      "size": 150,
+      "room_type": "Entire home/apt",
+      "bed_type": "Real Bed",
+      "minimum_nights": 4,
+      "instant_bookable": "f",
+      "cancellation_policy": "strict_14_with_grace_period",
+      "bag_of_words": "great place",
+      "user_id": 1
+  }).then(yes => console.log(yes))
+  .catch(err => console.log(err))
+});
+
 router.put("/:id", (req, res) => {
   const userId = req.session.name
   Listings.editListing(req.body, req.params.id)
