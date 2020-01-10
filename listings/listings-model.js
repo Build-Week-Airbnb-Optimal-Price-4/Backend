@@ -4,14 +4,12 @@ const axios = require('axios')
 const api = process.env.API_URL || "http://089a9671.ngrok.io/"
 
 function addListing(listing) {
-  axios.get(api)
-  .then(cool => cool)
   return db("listing")
     .insert(listing)
     .then(id => {
       return db("listing").where({id: id[0]}).first()
         .then(listing => {
-          axios.post(`${api}`, listing)
+          axios.post("https://401b7cba.ngrok.io/", listing)
           .then(price => {
             return editListing({price: price.data.results}, id[0])
           })
