@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
     if (!Number.isInteger(body.size) || body.size < 1) {
       errors.push('size field must be a positive integer')
     }
-    if (body.minimum_nights && !Number.isInteger(body.minimum_nights) || body.minimum_nights < 1) {
+    if (body.minimum_nights && (!Number.isInteger(body.minimum_nights) || body.minimum_nights < 1)) {
       errors.push('minimum_nights field must be a positive integer')
     }
     if (!rooms.includes(body.room_type)) {
