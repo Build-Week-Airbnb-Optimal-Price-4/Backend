@@ -9,7 +9,13 @@ function addListing(listing) {
     .then(id => {
       return db("listing").where({id: id[0]}).first()
         .then(listing => {
-          axios.post("https://airbnb-api4.herokuapp.com/", listing)
+          fetch('https://airbnb-api4.herokuapp.com/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
           .then(price => {
             return editListing({price: price.data.results}, id[0])
           })

@@ -4,10 +4,10 @@ const validatePost = require('./validatePost-middleware')
 const router = require("express").Router();
 
 
-router.get("/", (req, res) => {
-  axios.get('https://swapi.co/api/people/1')
-    .then(ppl => res.status(200).json(ppl))
-    .catch(err => res.send("something wrong"))
+router.post("/", validatePost, (req, res) => {
+    Listings.addListing(req.body)
+      .then(yes => res.status(201).json({msg:"listing successfully posted"}))
+      .catch(err => res.status(500).json({ errMsg: "error posting listing", err:err}));
 });
 
 router.put("/:id", (req, res) => {
