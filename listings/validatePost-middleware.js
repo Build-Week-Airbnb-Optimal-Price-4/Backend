@@ -59,8 +59,9 @@ module.exports = (req, res, next) => {
     }
     if (errors.length) {
       res.status(404).json(errors)
-    }
-    next()
+    } else {
+      next()
+    } 
   } else {
     res
     .status(400)
