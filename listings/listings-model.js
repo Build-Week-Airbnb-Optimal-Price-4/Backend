@@ -1,13 +1,15 @@
 const db = require("../database/dbconfig.js");
 const axios = require('axios')
 
+const api = process.env.API_URL || "https://089a9671.ngrok.io/"
+
 function addListing(listing) {
   return db("listing")
     .insert(listing)
     .then(id => {
       return db("listing").where({id: id[0]}).first()
         .then(listing => {
-          axios.post("https://7137f976.ngrok.io/", listing)
+          axios.post(`${api}`, listing)
           .then(price => {
             return editListing({price: price.data.results}, id[0])
           })

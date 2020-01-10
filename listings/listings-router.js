@@ -7,7 +7,7 @@ const router = require("express").Router();
 router.post("/", validatePost, (req, res) => {
     Listings.addListing(req.body)
       .then(yes => res.status(201).json({msg:"listing successfully posted"}))
-      .catch(err => res.status(500).json({ errMsg: "error posting listing"}));
+      .catch(err => res.status(500).json({ errMsg: "error posting listing", err:err}));
 });
 
 router.put("/:id", (req, res) => {
@@ -21,7 +21,7 @@ router.put("/:id", (req, res) => {
         res.status(404).json({errMsg: "listing not found"})
       }
     })
-    .catch(err => res.status(500).json({ errMsg: "error editing listing"}))
+    .catch(err => res.status(500).json({ errMsg: "error editing listing", err: err}))
 });
 
 router.delete("/:id", (req, res) => {
