@@ -13,7 +13,7 @@ async function editListing(listing, id) {
   console.log(pred.data)
   return db("listing")
     .where({ id: id })
-    .update({price: pred.data});
+    .update({...listing, price: pred.data});
 }
 
 function removeListing(id) {
