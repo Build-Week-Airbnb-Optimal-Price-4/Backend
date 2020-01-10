@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
   const beds = ["Real Bed", "Pull-out Sofa", "Futon", "Couch", "Airbed",]
   const bookable = ["f", "t",]
   const cancellations = ["flexible", "moderate", "strict_14_with_grace_period", "super_strict_30", "super_strict_60"]
-  console.log(!Number.isInteger(body.accommodates))
   if (
     body.accommodates &&
     body.bathrooms &&

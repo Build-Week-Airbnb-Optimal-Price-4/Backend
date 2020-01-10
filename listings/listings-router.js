@@ -6,8 +6,8 @@ const router = require("express").Router();
 
 router.post("/", validatePost, (req, res) => {
     Listings.addListing(req.body)
-      .then(yes => res.status(201).json({msg: "listing successfully posted"}))
-      .catch(err => res.status(500).json({ errMsg: "error posting listing", error: err }));
+      .then(yes => res.status(201).json({msg:"listing successfully posted"}))
+      .catch(err => res.status(500).json({ errMsg: "error posting listing"}));
 });
 
 router.put("/:id", (req, res) => {

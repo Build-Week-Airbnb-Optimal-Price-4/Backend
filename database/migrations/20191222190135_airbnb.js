@@ -43,7 +43,7 @@ exports.up = function(knex) {
       tbl.integer("minimum_nights").unsigned().defaultsTo(2);
       tbl.text("instant_bookable").defaultsTo('f');
       tbl.text("cancellation_policy").defaultsTo('flexible');
-      tbl.text("bag_of_words");
+      tbl.text("bag_of_words").defaultsTo('');
       tbl.float("price", { precision: 2 });
     });
 };
