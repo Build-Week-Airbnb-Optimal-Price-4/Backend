@@ -8,18 +8,13 @@ function addListing(listing) {
     .insert(listing)
     .then(id => {
       return db("listing").where({id: id[0]}).first()
-        .then(listing => {
-          fetch('https://airbnb-api4.herokuapp.com/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
+        .then(listing2 => {
+          axios.post(`https://airbnb-test-ds8.herokuapp.com/`, listing2)
           .then(price => {
-            return editListing({price: price.data.results}, id[0])
+            console.log(price)
+            return editListing({price: price.data}, id[0])
           })
-          .catch(err => res.json({err: err}))
+          .catch(err => res.json({err:err}))
         })
     })
 }
