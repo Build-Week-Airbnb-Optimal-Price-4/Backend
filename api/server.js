@@ -20,7 +20,7 @@ const sessionConfig = {
   saveUninitialized: false
 };
 
-const whitelist = ["http://localhost:3000", "https://opti.netlify.com"];
+const whitelist = ["http://localhost:3000", "https://opti.netlify.app"];
 
 const corsOptions = {
   origin: function(origin, callback) {
