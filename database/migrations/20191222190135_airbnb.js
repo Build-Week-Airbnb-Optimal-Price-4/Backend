@@ -17,20 +17,39 @@ exports.up = function(knex) {
         .references("id")
         .inTable("user")
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
+        .onDelete("CASCADE");
+      tbl.text("title").notNullable();
+      tbl.text("address");
+      tbl.text("image");
       tbl
-        .text("listing_url")
+        .integer("accommodates")
         .notNullable()
-        .unique();
-      tbl.text("city").notNullable();
+        .unsigned();
+      tbl
+        .integer("bathrooms")
+        .notNullable()
+        .unsigned();
+      tbl
+        .integer("bedrooms")
+        .notNullable()
+        .unsigned();
+      tbl
+        .integer("size")
+        .notNullable()
+        .unsigned();
       tbl.text("room_type").notNullable();
-      tbl.integer("minimum_nights").notNullable();
-      tbl.float("prediction", { precision: 2 });
+      tbl.text("bed_type").defaultsTo("Real Bed");
+      tbl
+        .integer("minimum_nights")
+        .unsigned()
+        .defaultsTo(2);
+      tbl.text("instant_bookable").defaultsTo("f");
+      tbl.text("cancellation_policy").defaultsTo("flexible");
+      tbl.text("bag_of_words").defaultsTo("");
+      tbl.float("price", { precision: 2 });
     });
 };
 
 exports.down = function(knex) {
-  return knex.schema
-    .dropTableIfExists("listing")
-    .dropTableIfExists("user");
+  return knex.schema.dropTableIfExists("listing").dropTableIfExists("user");
 };

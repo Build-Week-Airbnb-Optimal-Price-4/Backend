@@ -12,24 +12,23 @@ router.post("/register", (req, res) => {
     creds.password = hash;
 
     Users.addUser(creds)
-      .then(yes => res.status(201).json(yes))
+      .then(yes =>
+        res.status(201).json({ msg: "user successfully registered" })
+      )
       .catch(err => res.status(500).json({ errMsg: "error registering user" }));
   } else {
-    res.status(400).json({ errMsg: "email and password are required" });
+    res.status(404).json({ errMsg: "email and password are required" });
   }
 });
 
 router.post("/login", (req, res) => {
   const creds = req.body;
 
-  if (!req.session.name) {
-    Users.checkCreds(creds)
+  Users.checkCreds(creds)
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         req.session.name = user.id;
-        res
-          .status(200)
-          .json({ msg: "Login successful", user_id: user.id });
+        res.status(200).json({ msg: "Login successful", user_id: user.id });
       } else {
         res.status(401).json({ msg: "Invalid credentials" });
       }
@@ -37,26 +36,16 @@ router.post("/login", (req, res) => {
     .catch(err => {
       res.status(500).json({ errMsg: "error validating user" });
     });
-  } else {
-    res.status(400).json({errMsg: "already logged in"})
-  }
-
-  
 });
 
 router.get("/logout", (req, res) => {
-  if (!req.session.name) {
-    res.status(400).json({ errMsg: "already logged out" });
-  } else {
-    req.session.destroy(err => {
-      if (err) {
-        res.json({ errMsg: "error logging out" });
-      } else {
-        res.send({ msg: "user logged out" });
-      }
-    });
-  }
-  
+  req.session.destroy(err => {
+    if (err) {
+      res.json({ errMsg: "error logging out" });
+    } else {
+      res.send({ msg: "user logged out" });
+    }
+  });
 });
 
 module.exports = router;

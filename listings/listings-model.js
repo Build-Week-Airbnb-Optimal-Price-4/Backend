@@ -1,14 +1,19 @@
 const db = require("../database/dbconfig.js");
+const axios = require("axios");
 
-function addListing(listing) {
-  return db("listing")
-    .insert(listing)
+const api = process.env.API_URL || "https://airbnb-test-ds8.herokuapp.com/";
+
+async function addListing(listing) {
+  const pred = await axios.post(`${api}`, listing);
+  return db("listing").insert({ ...listing, price: pred.data });
 }
 
-function editListing(listing, id) {
+async function editListing(listing, id) {
+  const pred = await axios.post(`${api}`, listing);
+  console.log(pred.data);
   return db("listing")
     .where({ id: id })
-    .update(listing);
+    .update({ ...listing, price: pred.data });
 }
 
 function removeListing(id) {
@@ -18,7 +23,7 @@ function removeListing(id) {
 }
 
 function getListings(id) {
-  return db("listing").where({user_id: id})
+  return db("listing").where({ user_id: id });
 }
 
 module.exports = {
